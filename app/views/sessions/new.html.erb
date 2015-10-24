@@ -1,0 +1,32 @@
+<% provide(:title, "Log in") %>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<div class="container login-container">
+  <div class="row">
+    <div class="login-form">
+      <%= form_for(:session, url: login_path) do |f| %>
+
+        <%= f.label :username %>
+        <%= f.text_field :username, class: 'form-control' %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+
+        <%= f.label :remember_me, class: "checkbox" do %>
+        <%= f.check_box :remember_me %>
+        <span>Remember me on this computer</span><br>
+          New user? <%= link_to "Sign up now!", signup_path %>
+        <% end %>
+        <%= f.submit "Log in", class: "btn btn-primary login-button" %>
+      <% end %>
+      <br>
+        <div align="center">
+          <%= link_to "Sign in with Facebook", '/auth/facebook', class: "btn facebook-button" %>
+        </div>
+    </div>
+  </div>
+</div>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
