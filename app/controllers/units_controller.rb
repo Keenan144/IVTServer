@@ -24,7 +24,6 @@ class UnitsController < ApplicationController
   # POST /units
   # POST /units.json
   def create
-    @unit = Unit.new(unit_params)
 
     respond_to do |format|
       if @unit.save
@@ -69,6 +68,6 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params[:unit]
+      params[:unit].permit(:unit_number, :longitude, :latitude)
     end
 end
