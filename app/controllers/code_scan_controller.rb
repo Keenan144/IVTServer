@@ -7,7 +7,7 @@ class CodeScanController < ActionController::Base
   def scan_code_post
     render text: "Success"
     puts "!" * 100
-    Unit.new(unit_number: params[:unit_number], latitude: params[:latitude]).save
+    Unit.new(unit_number: params[:unit_number], latitude: params[:optional]).save
 
   end
 end
