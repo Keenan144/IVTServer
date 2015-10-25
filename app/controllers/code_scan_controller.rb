@@ -7,8 +7,6 @@ class CodeScanController < ActionController::Base
   def scan_code_post
     render text: "Success"
     puts "!" * 100
-    old_longLat = params[:longitude].to_string
-    @longLat = old_longLat[21,22]
     Unit.new(unit_number: params[:unit_number], longitude: @longLat, username: params[:username], address: params[:address]).save
 
   end
