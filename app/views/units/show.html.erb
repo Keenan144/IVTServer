@@ -32,7 +32,7 @@ latitude: <%= @latitude %>
     ]);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
-    handler.map.centerOn(marker)
+    handler.getMap().setZoom(16)
   });
 </script>
 
