@@ -14,6 +14,8 @@
       <tr>
         <td><%= link_to unit.unit_number, unit %></td>
         <td><%= link_to unit.updated_at, unit %></td>
+        <td><%= link_to unit.longitude, unit %></td>
+        <td><%= link_to unit.latitude, unit %></td>
         <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
         <td><%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
