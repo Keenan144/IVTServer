@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   match '/curl_example' => 'request_example#curl_get_example', via: :get
   match '/curl_example' => 'request_example#curl_post_example', via: :post
 
-  match '/scan_code' => 'units#scan_code_get', via: :get 
-  match '/scan_code' => 'units#scan_code_post', via: :post
+  match '/scan_code' => 'code_scan#scan_code_get', via: :get 
+  match '/scan_code' => 'code_scan#scan_code_post', via: :post
 
   root 'sessions#new'
 
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :units
   resources :users
 
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
