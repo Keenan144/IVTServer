@@ -5,6 +5,5 @@ class CodeScanController < ActionController::Base
 
   def scan_code_post
     render text: "Success"
-    render json: params
   end
 end
