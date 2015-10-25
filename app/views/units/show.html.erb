@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<%= @unit.longitude.split[1] %>
+<% raw = @unit.longitude.split[1] %>
+<% longitude = raw.split(",")[0] %>
+<% latitude = raw.split(",")[1].delete! '>' %>
+
+longitude: <%= longitude %>
+latitude: <%= latitude %>
 
 <%= link_to 'Edit', edit_unit_path(@unit) %> |
 <%= link_to 'Back', units_path %>
