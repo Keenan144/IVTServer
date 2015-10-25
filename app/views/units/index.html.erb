@@ -12,10 +12,12 @@
   <tbody>
     <% @units.each do |unit| %>
       <tr>
-        <td><%= link_to unit.unit_number, unit %></td>
-        <td><%= link_to unit.updated_at, unit %></td>
-        <td><%= link_to unit.longitude, unit %></td>
-        <td><%= link_to unit.latitude, unit %></td>
+        <td>unit_number: <%= link_to unit.unit_number, unit %></td>
+        <td>updated_at: <%= link_to unit.updated_at, unit %></td>
+        <td>longitude: <%= link_to unit.longitude, unit %></td>
+        <td>latitude: <%= link_to unit.latitude, unit %></td>
+        <td>username: <%= link_to unit.username, unit %></td>
+        <td>address: <%= link_to unit.address, unit %></td>
         <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
         <td><%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
