@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   match '/curl_example' => 'request_example#curl_get_example', via: :get
   match '/curl_example' => 'request_example#curl_post_example', via: :post
 
+  match '/scan_code' => 'units#scan_code_get', via: :get 
+  match '/scan_code' => 'units#scan_code_post', via: :post
+
   root 'sessions#new'
 
   get 'signup'  => 'users#new'
@@ -11,7 +14,6 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   
-
 
 
   resources :companies

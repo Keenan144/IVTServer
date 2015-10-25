@@ -4,7 +4,7 @@ class RequestExampleController < ActionController::Base
   end
 
   def curl_post_example
-    render text: "Thanks for sending a POST request with cURL! Payload: #{request.body.read}"
+    render text: "TETSTESTESTSETSETSETESTSE Thanks for sending a POST request with cURL! Payload: #{request.body.read}"
   end
 
   def index

@@ -23,6 +23,15 @@ class UnitsController < ApplicationController
 
   # POST /units
   # POST /units.json
+  def scan_code_get 
+    render text: "Success"
+  end
+
+  def scan_code_post
+    render text: "Success"
+  end
+
+
   def create
 
     respond_to do |format|
