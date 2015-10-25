@@ -12,10 +12,8 @@
   <tbody>
     <% @units.each do |unit| %>
       <tr>
-        <td>unit_number: <%= link_to unit.unit_number, unit %></td>
+        <td>unit_number:<strong> <%= link_to unit.unit_number, unit %></strong></td>
         <td>updated_at: <%= link_to unit.updated_at, unit %></td>
-        <td>longitude: <%= link_to unit.longitude, unit %></td>
-        <td>latitude: <%= link_to unit.latitude, unit %></td>
         <td>username: <%= link_to unit.username, unit %></td>
         <td>address: <%= link_to unit.address, unit %></td>
         <td><%= link_to 'Edit', edit_unit_path(unit) %></td>

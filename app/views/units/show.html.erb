@@ -6,14 +6,13 @@
 
 longitude: <%= @longitude %>
 latitude: <%= @latitude %>
+<%= link_to 'Back', units_path %>
 
 
 <div style='width: 800px;'>
   <div id="one_marker" style='width: 800px; height: 400px;'></div>
 </div>
 
-<%= link_to 'Edit', edit_unit_path(@unit) %> |
-<%= link_to 'Back', units_path %>
 
 <script type="text/javascript">
   handler = Gmaps.build('Google');
