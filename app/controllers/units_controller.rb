@@ -9,7 +9,7 @@ class UnitsController < ApplicationController
   end
 
   def all
-    @units = Unit.order(:updated_at).all
+    @units = Unit.order(:updated_at).all.reverse
   end
 
   def search

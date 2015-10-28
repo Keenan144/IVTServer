@@ -44,7 +44,7 @@
                             <th> Flagged?</th>
                         </tr>
                     </thead>
-                    <% @units.order('updated_at DESC').each do |unit| %>
+                    <% @units.each do |unit| %>
                     <% time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)") %>
                       <tr>
                         <td><strong> <%= link_to unit.unit_number, unit %></strong></td>
