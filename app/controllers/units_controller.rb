@@ -1,11 +1,32 @@
 class UnitsController < ApplicationController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
+  require 'set'
 
   # GET /units
   # GET /units.json
   def index
-    @units = Unit.all
+    noAdd = []
+    noAdd << Unit.first
+    Unit.order(:unit_number).all.each do |unit|
+      if noAdd.last.unit_number == unit.unit_number
+        p "skip"
+        if noAdd.last.updated_at >= unit.updated_at
+          p "skip"
+        else
+          p "added"
+          noAdd.pop
+          noAdd << unit
+        end
+      else
+        p "added"
+        noAdd << unit
+      end
+    end
+    noAdd.sort! { |x, y| x[:unit_number] <=> y[:unit_number] }
+
+    @units = noAdd
   end
+
 
   # GET /units/1
   # GET /units/1.json

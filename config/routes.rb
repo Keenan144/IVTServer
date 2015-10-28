@@ -3,13 +3,16 @@ Rails.application.routes.draw do
   match '/scan_code' => 'code_scan#scan_code_get', via: :get 
   match '/scan_code' => 'code_scan#scan_code_post', via: :post
 
-  root 'sessions#new'
+
+  root 'units#index'
   get '/create_account' => 'users#new'
 
   get 'logout'  => 'sessions#destroy'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+
+  get '/dashboard' => 'static_pages#dashboard'
   
   namespace :admin, constraints: { subdomain: '' } do 
     resources :sign_ups, only: [:index, :edit] do
