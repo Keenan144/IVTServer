@@ -23,14 +23,6 @@ class UnitsController < ApplicationController
 
   # POST /units
   # POST /units.json
-  def scan_code_get 
-    render text: "Success"
-  end
-
-  def scan_code_post
-    render text: "Success"
-  end
-
 
   def create
 
@@ -77,6 +69,6 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params[:unit].permit(:unit_number, :longitude, :latitude)
+      params[:unit].permit(:unit_number, :longitude, :latitude, :address, :username)
     end
 end

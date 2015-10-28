@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    @login_screen = true
   end
 
   def create

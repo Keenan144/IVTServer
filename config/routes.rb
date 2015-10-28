@@ -1,19 +1,35 @@
 Rails.application.routes.draw do
 
-  match '/curl_example' => 'request_example#curl_get_example', via: :get
-  match '/curl_example' => 'request_example#curl_post_example', via: :post
-
   match '/scan_code' => 'code_scan#scan_code_get', via: :get 
   match '/scan_code' => 'code_scan#scan_code_post', via: :post
 
   root 'sessions#new'
+  get '/create_account' => 'users#new'
 
-  get 'signup'  => 'users#new'
   get 'logout'  => 'sessions#destroy'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   
+  namespace :admin, constraints: { subdomain: '' } do 
+    resources :sign_ups, only: [:index, :edit] do
+      collection do
+        post :approve
+      end
+    end
+    resources :admin_view do
+      collection do
+        post :approve
+      end
+    end
+    resources :bill_of_ladings do
+      collection do
+        post :approve
+      end
+    end
+  end
+
+
 
 
   resources :companies
