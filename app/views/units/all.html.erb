@@ -1,21 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Listing Units
-                <small>Individual Units</small>
+                All Scans
+                <small>Scanned Units</small>
             </h1>
             <ol class="breadcrumb">
                 <li>
                     <i class="fa fa-dashboard"></i>  <a href="/dashboard">Dashboard</a>
                 </li>
                 <li class="active">
-                    <i class="fa fa-file"></i> Individual Units
+                    <i class="fa fa-file"></i> All Scans
                 </li>
             </ol>
         </div>
@@ -27,29 +24,39 @@
 <div class="container-fluid">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Listing Individual Units</h3>
+            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> All Scans (ordered by most recent scan)</h3>
+            <div class="search-bar" align="center">
+            <%= form_tag search_path, method: :get do %>
+              <%= text_field_tag :search, params[:search], class: "form-input" %>
+              <%= submit_tag "Search", name: nil %>
+            <% end %>
+            </div>
         </div>
         <div class="panel-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped">
+               <table id="table-pagination" data-url="data2.json" data-height="400" data-pagination="true" data-search="true" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
                             <th>Unit Number</th>
                             <th>Last Updated</th>
                             <th>User</th>
                             <th>Address</th>
-                            <th>Flag</th>
+                            <th> Flagged?</th>
                         </tr>
                     </thead>
-                    <% @units.each do |base| %>
-                    <% unit = Unit.order(updated_at: :desc).find_by(unit_number: base) %>
-                    <% time = Time.parse(unit.created_at.to_s).in_time_zone("Central Time (US & Canada)") %>
+                    <% @units.order('updated_at DESC').each do |unit| %>
+                    <% time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)") %>
                       <tr>
-                        <td><strong> <%= link_to base, unit %></strong></td>
+                        <td><strong> <%= link_to unit.unit_number, unit %></strong></td>
                         <td><%= link_to time.strftime("%m/%d/%Y at %I:%M%p CT"), unit%></td>
                         <td> <%= link_to unit.username, unit %></td>
                         <td> <%= link_to self.parse_address(unit.address), unit %></td>
-                        <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
+                        <td><% if self.is_flagged(unit) %>
+                            <i class="fa fa-flag" style="color:red"> Yes</i>
+                            <% else %>
+                            <i class="fa fa-circle" style="color:green"> No</i>
+                            <% end %>
+                        </td>
 
                       </tr>
                     <% end %>
@@ -59,9 +66,8 @@
                 </table>
             </div>
             <div class="text-right">
-                <a href="/all_scans">View All Unit Scans <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#">Download Excell<i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
 </div>
-

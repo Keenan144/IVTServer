@@ -1,11 +1,33 @@
 class UnitsController < ApplicationController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
-  require 'set'
+
 
   # GET /units
   # GET /units.json
   def index
     @units = Unit.uniq.pluck(:unit_number)
+  end
+
+  def all
+    @units = Unit.order(:updated_at).all
+  end
+
+  def search
+    number = params[:search]
+    @units = []
+    Unit.all.each do |unit|
+    time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)")
+      if unit.unit_number[number.upcase]
+        @units << unit 
+      elsif unit.username.downcase[number.downcase]
+        @units << unit
+      elsif unit.address.downcase[number.downcase]
+        @units << unit
+      elsif time.strftime("%m/%d/%Y at %I:%M%p CT").to_s.downcase[number.downcase]
+        @units << unit
+          
+      end
+    end
   end
 
 

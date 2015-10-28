@@ -7,6 +7,10 @@ module UnitsHelper
     city_state = address.split(',')[3]
     street.split(':')[1] + "," + city_state.split(':')[1] + zip.split(':')[1]
   end
+
+  def is_flagged(unit)
+    unit.flagged
+  end
 end
 
 

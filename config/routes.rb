@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   get '/dashboard' => 'static_pages#dashboard'
+  get '/all_scans' => 'units#all'
+  get '/search' => 'units#search'
   
   namespace :admin, constraints: { subdomain: '' } do 
     resources :sign_ups, only: [:index, :edit] do
