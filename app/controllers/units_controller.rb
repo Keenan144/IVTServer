@@ -5,26 +5,7 @@ class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
-    noAdd = []
-    noAdd << Unit.first
-    Unit.order(:unit_number).all.each do |unit|
-      if noAdd.last.unit_number == unit.unit_number
-        p "skip"
-        if noAdd.last.updated_at >= unit.updated_at
-          p "skip"
-        else
-          p "added"
-          noAdd.pop
-          noAdd << unit
-        end
-      else
-        p "added"
-        noAdd << unit
-      end
-    end
-    noAdd.sort! { |x, y| x[:unit_number] <=> y[:unit_number] }
-
-    @units = noAdd
+    @units = Unit.uniq.pluck(:unit_number)
   end
 
 
