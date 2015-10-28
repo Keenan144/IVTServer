@@ -30,6 +30,10 @@ class UnitsController < ApplicationController
     end
   end
 
+  def flagged 
+    @units = Unit.where(flagged: true)
+  end
+
 
   # GET /units/1
   # GET /units/1.json

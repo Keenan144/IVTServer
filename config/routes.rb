@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/dashboard' => 'static_pages#dashboard'
   get '/all_scans' => 'units#all'
   get '/search' => 'units#search'
+  get '/flagged' => 'units#flagged'
   
   namespace :admin, constraints: { subdomain: '' } do 
     resources :sign_ups, only: [:index, :edit] do
