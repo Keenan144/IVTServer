@@ -37,9 +37,9 @@
                         <tr>
                             <th>Unit Number</th>
                             <th>Last Updated</th>
-                            <th>User</th>
-                            <th>Address</th>
-                            <th>Flag</th>
+                            <th>Last User</th>
+                            <th>Last Address</th>
+                            <th>Scans</th>
                         </tr>
                     </thead>
                     <% @units.each do |base| %>
@@ -50,7 +50,7 @@
                         <td><%= link_to time.strftime("%m/%d/%Y at %I:%M%p CT"), unit%></td>
                         <td> <%= link_to unit.username, unit %></td>
                         <td> <%= link_to self.parse_address(unit.address), unit %></td>
-                        <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
+                        <td><%= Unit.where(unit_number: base).count %></td>
 
                       </tr>
                     <% end %>

@@ -24,7 +24,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-comments fa-5x"></i>
+                            <i class="fa fa-truck fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"><%= Unit.uniq.pluck(:unit_number).count %></div>
@@ -46,7 +46,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-tasks fa-5x"></i>
+                            <i class="fa fa-barcode fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"><%= Unit.all.count %></div>
@@ -68,7 +68,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-shopping-cart fa-5x"></i>
+                            <i class="fa fa-flag fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"><%= Unit.where(flagged: true).count%></div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="/flagged">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -90,7 +90,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-support fa-5x"></i>
+                            <i class="fa fa-exclamation-triangle fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                           <br>
@@ -98,9 +98,9 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="mailto:keenansturtevant@gmail.com">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">Email Tech</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -114,7 +114,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Unit Usage</h3>
                 </div>  
                 <div class="panel-body">
                     <div id="morris-area-chart">
@@ -175,7 +175,7 @@
         <div class="col-lg-7">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Last Unit Locations</h3>
+                    <h3 class="panel-title"><i class="fa fa-globe fa-fw"></i> Last Unit Locations</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
