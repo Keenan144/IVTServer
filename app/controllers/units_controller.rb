@@ -99,4 +99,7 @@ class UnitsController < ApplicationController
     def unit_params
       params[:unit].permit(:unit_number, :longitude, :latitude, :address, :username)
     end
+
+
+
 end

@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+  file = File.read("#{Rails.root}/config/secrets/admin_config.yml")
+  ADMIN_CONFIG = YAML.load(file)[Rails.env].symbolize_keys
+
+  before_filter :set_admin
+  http_basic_authenticate_with :name => ADMIN_CONFIG[:name], :password => ADMIN_CONFIG[:password]
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -32,7 +38,7 @@ class UsersController < ApplicationController
         format.html { redirect_to '/', notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :template => 'admin/user/new' }
+        format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -72,4 +78,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :password, :company_id)
     end
+      def set_admin
+    @admin = true
+  end
 end

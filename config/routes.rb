@@ -16,21 +16,6 @@ Rails.application.routes.draw do
   get '/all_scans' => 'units#all'
   get '/search' => 'units#search'
   get '/flagged' => 'units#flagged'
-  
-  namespace :admin, constraints: { subdomain: '' } do 
-    resources :admin_view do
-      collection do
-        post :approve
-      end
-    end
-    resources :user do
-      collection do
-        post :approve
-      end
-    end
-  end
-
-
 
 
   resources :companies
