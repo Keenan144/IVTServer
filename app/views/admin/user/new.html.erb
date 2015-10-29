@@ -1,0 +1,30 @@
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+<%= form_for(@user) do |f| %>
+
+<div class="row white-text">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: @user %>
+
+      <%= f.label :username %>
+      <%= f.text_field :username, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+      <br>
+      
+      <div class="create-account" align="center">
+      <%= f.submit "Create the account", class: "btn btn-primary sign-up-button" %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+<% end %>

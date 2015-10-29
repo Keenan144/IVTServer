@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   match '/scan_code' => 'code_scan#scan_code_post', via: :post
 
 
-  root 'units#index'
+  root 'static_pages#dashboard'
   get '/create_account' => 'users#new'
 
   get 'logout'  => 'sessions#destroy'
@@ -18,17 +18,12 @@ Rails.application.routes.draw do
   get '/flagged' => 'units#flagged'
   
   namespace :admin, constraints: { subdomain: '' } do 
-    resources :sign_ups, only: [:index, :edit] do
-      collection do
-        post :approve
-      end
-    end
     resources :admin_view do
       collection do
         post :approve
       end
     end
-    resources :bill_of_ladings do
+    resources :user do
       collection do
         post :approve
       end

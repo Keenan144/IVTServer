@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<% if current_user %>
+
 
 <% raw = @unit.longitude.split[1] %>
 <% @longitude = raw.split(",")[0] %>
@@ -35,3 +36,4 @@ latitude: <%= @latitude %>
   });
 </script>
 
+<% end %>

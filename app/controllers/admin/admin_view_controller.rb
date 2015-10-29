@@ -7,10 +7,10 @@ class Admin::AdminViewController < ApplicationController
 
 
 def index
-
+  @users = User.all
 end
 
-def new_user
+def new
   @new_user = true
 end
 
