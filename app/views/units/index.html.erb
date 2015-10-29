@@ -43,14 +43,14 @@
                         </tr>
                     </thead>
                     <% @units.each do |base| %>
-                    <% unit = Unit.order(updated_at: :desc).find_by(unit_number: base) %>
+                    <% unit = Unit.find_by(unit_number: base) %>
                     <% time = Time.parse(unit.created_at.to_s).in_time_zone("Central Time (US & Canada)") %>
                       <tr>
                         <td><strong> <%= link_to base, unit %></strong></td>
                         <td><%= link_to time.strftime("%m/%d/%Y at %I:%M%p CT"), unit%></td>
                         <td> <%= link_to unit.username, unit %></td>
                         <td> <%= link_to self.parse_address(unit.address), unit %></td>
-
+                        <td><%= Unit.where(unit_number: base).count %></td>
 
                       </tr>
                     <% end %>
