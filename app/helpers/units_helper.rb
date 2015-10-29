@@ -1,11 +1,29 @@
 module UnitsHelper
 
   def parse_address(address)
-    p "address"
-    street = address.split(',')[4]
-    zip = address.split(',')[5] 
-    city_state = address.split(',')[3]
-    street.split(':')[1] + "," + city_state.split(':')[1] + zip.split(':')[1]
+    p "======================================================================="
+    address = address.split(", ")
+    address.each do |sub|
+      if sub.split(': ')[0] == "CountryCode"
+        @countryCode = sub.split(': ')[1]
+        @countryCode.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "ZIP"
+        @zip = sub.split(': ')[1]
+        @zip.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "Street"
+        @street = sub.split(': ')[1]
+        @street.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "State"
+        @state = sub.split(': ')[1]
+        @state.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "City"
+        @city = sub.split(': ')[1]
+        @city.gsub!(/\W+/, '')
+      end
+    end
+
+    @street + ", " + @city + " " + @state + ", " + @zip + " " + @countryCode
+
   end
 
   def is_flagged(unit)

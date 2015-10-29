@@ -51,7 +51,7 @@
                         <td><strong> <%= link_to unit.unit_number, unit %></strong></td>
                         <td><%= link_to time.strftime("%m/%d/%Y at %I:%M%p CT"), unit%></td>
                         <td> <%= link_to unit.username, unit %></td>
-
+                         <td> <%= link_to self.parse_address(unit.address), unit %></td>
                         <td><% if self.is_flagged(unit) %>
                             <i class="fa fa-flag" style="color:red"> Yes</i>
                             <% else %>
