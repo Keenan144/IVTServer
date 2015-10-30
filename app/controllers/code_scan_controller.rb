@@ -6,26 +6,27 @@ class CodeScanController < ActionController::Base
   def scan_code_post
     render text: "Success"
 
-    @unit = Unit.new(unit_number: params[:unit_number], longitude: params[:longitude], username: params[:username], address: params[:address]).save
+    Unit.new(unit_number: params[:unit_number], longitude: params[:longitude], username: params[:username], address: params[:address]).save
 
+    @unit = Unit.last
     @unit.update(address: parse_address(@unit.address))
     parse_coordinates(@unit)
 
   end
 
 
-    def parse_coordinates(coordinates)
-      @unit = Unit.find(coordinates)
-        if @unit.latitude == nil 
-        p raw = @unit.longitude.split[1] 
-        p @longitude = raw.split(",")[0] 
-        p raw = @unit.longitude.split[1] 
-        p @latitude = raw.split(",")[1]
-        @latitude = @latitude.chomp('>')
-        @unit.update(longitude: @longitude)
-        @unit.update(latitude: @latitude)
-      end
+  def parse_coordinates(coordinates)
+    @unit = Unit.find(coordinates)
+      if @unit.latitude == nil 
+      p raw = @unit.longitude.split[1] 
+      p @longitude = raw.split(",")[0] 
+      p raw = @unit.longitude.split[1] 
+      p @latitude = raw.split(",")[1]
+      @latitude = @latitude.chomp('>')
+      @unit.update(longitude: @longitude)
+      @unit.update(latitude: @latitude)
     end
+  end
 
 
   def parse_address(address)
