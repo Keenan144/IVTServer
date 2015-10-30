@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   get '/all_scans' => 'units#all'
   get '/search' => 'units#search'
   get '/flagged' => 'units#flagged'
-
+  get '/flag/unit/:id' => 'units#flag'
+  get '/unflag/unit/:id' => 'units#unflag'
+  match '/ajaxflag/:id' => 'units#ajax_flagger', via: :post
 
   resources :companies
   resources :units

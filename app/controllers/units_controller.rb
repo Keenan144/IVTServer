@@ -1,5 +1,5 @@
 class UnitsController < ApplicationController
-  before_action :set_unit, only: [:show, :edit, :update, :destroy]
+  before_action :set_unit, only: [:show, :edit, :update, :destroy, :ajax_flagger]
 
 
   # GET /units
@@ -9,7 +9,13 @@ class UnitsController < ApplicationController
   end
 
   def all
-    @units = Unit.order(:updated_at)
+    @units = Unit.order(:updated_at).reverse
+    @xlsUnits = Unit.all
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @users }
+      format.xls { send_data @xlsUnits.to_xls, :filename => 'units.xls' }
+    end
   end
 
   def search
@@ -30,14 +36,25 @@ class UnitsController < ApplicationController
     end
   end
 
+  def ajax_flagger
+    if @unit.flagged == true
+      @unit.update(flagged: false)
+    else
+      @unit.update(flagged: true)
+    end
+    redirect_to @unit
+  end
+
   def flagged 
     @units = Unit.where(flagged: true)
   end
 
 
+
   # GET /units/1
   # GET /units/1.json
   def show
+    
   end
 
   # GET /units/new
@@ -52,10 +69,48 @@ class UnitsController < ApplicationController
   # POST /units
   # POST /units.json
 
-  def create
+  def parse_coordinates(coordinates)
+    @unit = Unit.find(coordinates)
+      if @unit.latitude == nil 
+      p raw = @unit.longitude.split[1] 
+      p @longitude = raw.split(",")[0] 
+      p raw = @unit.longitude.split[1] 
+      p @latitude = raw.split(",")[1]
+      @latitude = @latitude.chomp('>')
+      @unit.update(longitude: @longitude)
+      @unit.update(latitude: @latitude)
+    end
+  end
 
+
+  def parse_address(address)
+    address = address.split(", ")
+    address.each do |sub|
+      if sub.split(': ')[0] == "CountryCode"
+        @countryCode = sub.split(': ')[1]
+        @countryCode.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "ZIP"
+        @zip = sub.split(': ')[1]
+        @zip.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "Street"
+        @street = sub.split(': ')[1]
+        @street.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "State"
+        @state = sub.split(': ')[1]
+        @state.gsub!(/\W+/, '')
+      elsif sub.split(': ')[0] == "City"
+        @city = sub.split(': ')[1]
+        @city.gsub!(/\W+/, '')
+      end
+    end
+    @street + ", " + @city + " " + @state + ", " + @zip + " " + @countryCode
+  end
+
+  def create
     respond_to do |format|
       if @unit.save
+        @unit.update(address: parse_address(@unit.address))
+        parse_coordinates(@unit)
         format.html { redirect_to @unit, notice: 'Unit was successfully created.' }
         format.json { render :show, status: :created, location: @unit }
       else

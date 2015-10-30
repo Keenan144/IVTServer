@@ -1,17 +1,47 @@
 <% if current_user %>
 
 
-<% raw = @unit.longitude.split[1] %>
-<% @longitude = raw.split(",")[0] %>
-<% @latitude = raw.split(",")[1].delete! '>' %>
-
-longitude: <%= @longitude %>
-latitude: <%= @latitude %>
-<%= link_to 'Back', units_path %>
-
 
 <div style='width: 800px;'>
   <div id="one_marker" style='width: 800px; height: 400px;'></div>
+</div>
+
+
+<div class="panel-body">
+  <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+          <thead>
+              <tr>
+                  <th>Unit Number</th>
+                  <th>Scanned at</th>
+                  <th>User</th>
+                  <th>Address</th>
+                  <th>Scans</th>
+              </tr>
+          </thead>
+          <% time = Time.parse(@unit.created_at.to_s).in_time_zone("Central Time (US & Canada)") %>
+            <tr>
+              <td><strong> <%=  @unit.unit_number %></strong></td>
+              <td><%=  time.strftime("%m/%d/%Y at %I:%M%p CT")%></td>
+              <td> <%=  @unit.username %></td>
+               <td> <%=  self.parse_address(@unit.address) %></td>
+              <td><%= Unit.where(unit_number: @unit.unit_number).count %></td>
+
+            </tr>
+          <tbody>
+
+          </tbody>
+      </table>
+  </div>
+
+  <div align="center"> 
+    <!-- Ajax with remote true, need show.js page to update which button to display -->
+    <% if @unit.flagged == false %>
+        <%= link_to 'Flag Me', '/ajaxflag/'+ @unit.id.to_s , method: :post, class: "btn btn-warning btn-lg" %>
+    <% else %>
+        <%= link_to 'Un-Flag Me', '/ajaxflag/'+ @unit.id.to_s , method: :post, class: "btn btn-success btn-lg" %>
+    <% end %>
+  </div>
 </div>
 
 
@@ -20,8 +50,8 @@ latitude: <%= @latitude %>
   handler.buildMap({ provider: {}, internal: {id: 'one_marker'}}, function(){
     markers = handler.addMarkers([
       {
-        "lat": '<%= j @longitude %>',
-        "lng": '<%= j @latitude %>',
+        "lat": '<%= j @unit.longitude %>',
+        "lng": '<%= j @unit.latitude %>',
         "picture": {
           
           "width":  36,
