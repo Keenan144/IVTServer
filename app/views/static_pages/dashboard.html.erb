@@ -1,32 +1,6 @@
 <%= notice %>
 <% if current_user %>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
 
-      google.load('visualization', '1.0', {'packages':['corechart']});
-
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        "<%= units = Unit.order(:unit_number).uniq.pluck(:unit_number) %>"
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Unit');
-        data.addColumn('number', 'Scans');
-        <% units.each do |unit| %>
-            data.addRows([
-              ["<%= unit %>", <%= Unit.where(unit_number: unit).count.to_i %>]
-            ]);
-        <% end %>
-
-        var options = {'title':'Unit usage',
-                       'width':600,
-                       'height':300};
-
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
 
 <div class="container-fluid">
 
@@ -143,20 +117,7 @@
     </div>
     <!-- /.row -->
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Unit Usage</h3>
-                </div>  
-                <div class="panel-body">
-                    <div id="morris-area-chart">
-                        <div id="chart_div"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <%= render "static_pages/unit_usage" %>
     <!-- /.row -->
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -166,64 +127,7 @@
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
-                            <!-- <thead>
-                                <tr>
-                                    <th>Order #</th>
-                                    <th>Order Date</th>
-                                    <th>Order Time</th>
-                                    <th>Amount (USD)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>3326</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:29 PM</td>
-                                    <td>$321.33</td>
-                                </tr>
-                                <tr>
-                                    <td>3325</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:20 PM</td>
-                                    <td>$234.34</td>
-                                </tr>
-                                <tr>
-                                    <td>3324</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:03 PM</td>
-                                    <td>$724.17</td>
-                                </tr>
-                                <tr>
-                                    <td>3323</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:00 PM</td>
-                                    <td>$23.71</td>
-                                </tr>
-                                <tr>
-                                    <td>3322</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:49 PM</td>
-                                    <td>$8345.23</td>
-                                </tr>
-                                <tr>
-                                    <td>3321</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:23 PM</td>
-                                    <td>$245.12</td>
-                                </tr>
-                                <tr>
-                                    <td>3320</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:15 PM</td>
-                                    <td>$5663.54</td>
-                                </tr>
-                                <tr>
-                                    <td>3319</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:13 PM</td>
-                                    <td>$943.45</td>
-                                </tr>
-                            </tbody> -->
+                            <% render "static_pages/unit_geo_map" %>
                             Not ready ... (coming soon)
                         </table>
                     </div>

@@ -1,0 +1,40 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<script type="text/javascript">
+  google.load('visualization', '1.0', {'packages':['corechart']});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    "<%= units = Unit.order(:unit_number).uniq.pluck(:unit_number) %>"
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Unit');
+    data.addColumn('number', 'Scans');
+    <% units.each do |unit| %>
+        data.addRows([
+          ["<%= unit %>", <%= Unit.where(unit_number: unit).count.to_i %>]
+        ]);
+    <% end %>
+
+    var options = {'title':'Unit usage',
+                   'width':600,
+                   'height':300};
+
+    var chart = new google.visualization.BarChart(document.getElementById('unit_graph'));
+    chart.draw(data, options);
+  }
+</script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Unit Usage</h3>
+            </div>  
+            <div class="panel-body">
+                <div id="morris-area-chart">
+                    <div id="unit_graph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
