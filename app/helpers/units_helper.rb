@@ -2,8 +2,12 @@ module UnitsHelper
 
   def parse_address(unit)
     unit = Unit.find(unit)
-    address = unit.street + unit.zip + unit.city + unit.state 
-    address
+    if 
+      address = unit.street + unit.zip + unit.city + unit.state 
+      address
+    else
+      "address format cannot be read"
+    end
   end
 
   def is_flagged(unit)
