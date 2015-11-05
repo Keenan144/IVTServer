@@ -1,9 +1,9 @@
 module UnitsHelper
 
   def parse_address(unit)
-    unit = Unit.find(unit)
+    unit = Unit.find(unit.id)
     if 
-      address = unit.street + unit.zip + unit.city + unit.state 
+      address = unit.street.to_s + " " + unit.zip.to_s + " " + unit.city.to_s + " " + unit.state.to_s
       address
     else
       "address format cannot be read"
