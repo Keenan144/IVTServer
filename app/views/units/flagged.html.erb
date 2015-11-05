@@ -50,7 +50,7 @@
                             <th> Flagged?</th>
                         </tr>
                     </thead>
-                    <% @units.each do |unit| %>
+                    <% @units.sort_by{|e| e[:created_at]}.reverse.each do |unit| %>
                     <% time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)") %>
                       <tr>
                         <td><strong> <%= link_to unit.unit_number, unit %></strong></td>
