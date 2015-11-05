@@ -24,7 +24,7 @@
               <td><strong> <%=  @unit.unit_number %></strong></td>
               <td><%=  time.strftime("%m/%d/%Y at %I:%M%p CT")%></td>
               <td> <%=  @unit.username %></td>
-               <td> <%=  @unit.street %> <%=  @unit.zip %> <%=  @unit.city %> </td>
+               <td> <%= self.parse_address(@unit) %> </td>
               <td><%= Unit.where(unit_number: @unit.unit_number).count %></td>
 
             </tr>
