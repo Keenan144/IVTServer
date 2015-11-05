@@ -6,7 +6,8 @@ module UnitsHelper
       address = unit.street.to_s + " " + unit.zip.to_s + " " + unit.city.to_s + " " + unit.state.to_s
       address
     else
-      "address format cannot be read"
+      address = "address format cannot be read"
+      address
     end
   end
 
