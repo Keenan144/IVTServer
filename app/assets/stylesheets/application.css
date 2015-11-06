@@ -21,3 +21,7 @@
  .login-button {
   width: 100%;
  }
+ .units_graph_restrict {
+  max-height: 800px;
+  overflow: scroll;
+ }
