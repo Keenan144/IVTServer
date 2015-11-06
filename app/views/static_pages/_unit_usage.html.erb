@@ -5,6 +5,7 @@
   google.setOnLoadCallback(drawChart);
   function drawChart() {
     "<%= units = Unit.order(:unit_number).uniq.pluck(:unit_number) %>"
+    var chartHeight = <%= units.count %> * 30
 
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Unit');
@@ -17,7 +18,7 @@
 
     var options = {'title':'Unit usage',
                    'width':600,
-                   'height':300};
+                   'height':chartHeight};
 
     var chart = new google.visualization.BarChart(document.getElementById('unit_graph'));
     chart.draw(data, options);
