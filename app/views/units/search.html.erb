@@ -26,13 +26,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> All Scans (ordered by most recent scan)</h3>
-            <div class="search-bar" align="center">
-            <%= form_tag search_path, method: :get do %>
-              <%= text_field_tag :search, params[:search], class: "form-input" %>
-              <%= submit_tag "Search", name: nil %>
-            <% end %>
-            </div>
         </div>
+        <%= render "layouts/search_bar" %>
         <div class="panel-body">
             <div class="table-responsive">
                <table id="table-pagination" data-url="data2.json" data-height="400" data-pagination="true" data-search="true" class="table table-bordered table-hover table-striped">

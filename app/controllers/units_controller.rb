@@ -21,17 +21,23 @@ class UnitsController < ApplicationController
   def search
     number = params[:search]
     @units = []
-    if number != nil
-      Unit.all.each do |unit|
-      time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)")
-        if unit.unit_number[number.upcase]
-          @units << unit 
-        elsif unit.username.downcase[number.downcase]
-          @units << unit
-        elsif unit.address.downcase[number.downcase]
-          @units << unit
-        elsif time.strftime("%m/%d/%Y at %I:%M%p CT").to_s.downcase[number.downcase]
-          @units << unit 
+    if number.downcase == "flagged" 
+      @units = Unit.where(flagged: true)
+    else
+      if number != nil
+        Unit.all.each do |unit|
+        time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)")
+          if unit.unit_number[number.upcase]
+            @units << unit 
+          elsif unit.username.downcase[number.downcase]
+            @units << unit
+          elsif unit.address.downcase[number.downcase]
+            @units << unit
+          elsif unit.street
+            @units << unit
+          elsif time.strftime("%m/%d/%Y at %I:%M%p CT").to_s.downcase[number.downcase]
+            @units << unit 
+          end
         end
       end
     end

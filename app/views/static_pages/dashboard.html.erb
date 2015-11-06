@@ -14,13 +14,8 @@
                 <li class="active">
                     <i class="fa fa-dashboard"></i> Dashboard
                 </li>
-                <div class="search-bar" align="center">
-                <%= form_tag search_path, method: :get do %>
-                <%= text_field_tag :search, params[:search], :placeholder => 'Enter search term...', class: "form-input" %>
-                <%= submit_tag "Search", name: nil %>
-                <% end %>
-                </div>
             </ol>
+            <%= render "layouts/search_bar" %>
         </div>
     </div>
     <!-- /.row -->

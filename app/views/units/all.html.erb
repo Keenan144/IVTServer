@@ -26,15 +26,11 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-barcode fa-fw" style="color:green"></i> All Scans</h3>
-            <div class="search-bar" align="center">
-            <%= form_tag search_path, method: :get do %>
-              <%= text_field_tag :search, params[:search], class: "form-input" %>
-              <%= submit_tag "Search", name: nil, class: "btn btn-default btn-sm" %>
-            <% end %>
-            </div>
+            
         </div>
         <br>
-        <div class="text-right">
+        <%= render "layouts/search_bar" %>
+            <div class="text-right">
                 <a href="/all_scans.xls" class="btn btn-info wow bounceIn" data-wow-delay=".2s">Download Excell<i class="fa fa-arrow-circle-right"></i></a>
                 <a href="/all_scans.csv" class="btn btn-default wow bounceIn" data-wow-delay=".4s">Download CSV<i class="fa fa-arrow-circle-right"></i></a>
             </div>
