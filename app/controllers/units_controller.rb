@@ -5,7 +5,13 @@ class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
-    @units = Unit.uniq.pluck(:unit_number)
+    @units = []
+    uniq_units = Unit.uniq.pluck(:unit_number)
+    uniq_units.each do |base|
+    units = Unit.where(unit_number: base)
+    @units << units.order(:created_at).last
+
+   end
   end
 
   def all
@@ -21,26 +27,15 @@ class UnitsController < ApplicationController
   def search
     number = params[:search]
     @units = []
-    if number.downcase == "flagged" 
-      @units = Unit.where(flagged: true)
-    else
-      if number != nil
-        Unit.all.each do |unit|
-        time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)")
-          if unit.unit_number[number.upcase]
-            @units << unit 
-          elsif unit.username.downcase[number.downcase]
-            @units << unit
-          elsif unit.address.downcase[number.downcase]
-            @units << unit
-          elsif unit.street
-            @units << unit
-          elsif time.strftime("%m/%d/%Y at %I:%M%p CT").to_s.downcase[number.downcase]
-            @units << unit 
-          end
+    if number != nil
+      Unit.all.each do |unit|
+      time = Time.parse(unit.updated_at.to_s).in_time_zone("Central Time (US & Canada)")
+        if unit.unit_number[number.upcase]
+          @units << unit 
         end
       end
     end
+
   end
 
   def ajax_flagger
@@ -80,43 +75,6 @@ class UnitsController < ApplicationController
 
   # POST /units
   # POST /units.json
-
-  def parse_coordinates(coordinates)
-    @unit = Unit.find(coordinates)
-      if @unit.latitude == nil 
-      p raw = @unit.longitude.split[1] 
-      p @longitude = raw.split(",")[0] 
-      p raw = @unit.longitude.split[1] 
-      p @latitude = raw.split(",")[1]
-      @latitude = @latitude.chomp('>')
-      @unit.update(longitude: @longitude)
-      @unit.update(latitude: @latitude)
-    end
-  end
-
-
-  def parse_address(address)
-    address = address.split(", ")
-    address.each do |sub|
-      if sub.split(': ')[0] == "CountryCode"
-        @countryCode = sub.split(': ')[1]
-        @countryCode.gsub!(/\W+/, '')
-      elsif sub.split(': ')[0] == "ZIP"
-        @zip = sub.split(': ')[1]
-        @zip.gsub!(/\W+/, '')
-      elsif sub.split(': ')[0] == "Street"
-        @street = sub.split(': ')[1]
-        @street.gsub!(/\W+/, '')
-      elsif sub.split(': ')[0] == "State"
-        @state = sub.split(': ')[1]
-        @state.gsub!(/\W+/, '')
-      elsif sub.split(': ')[0] == "City"
-        @city = sub.split(': ')[1]
-        @city.gsub!(/\W+/, '')
-      end
-    end
-    @street + ", " + @city + " " + @state + ", " + @zip + " " + @countryCode
-  end
 
   def create
     respond_to do |format|
