@@ -5,17 +5,20 @@ class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
+
     @units = []
     uniq_units = Unit.uniq.pluck(:unit_number)
+
     uniq_units.each do |base|
     units = Unit.where(unit_number: base)
     @units << units.order(:created_at).last
 
-   end
+    end
   end
 
   def all
-    @units = Unit.order(:updated_at).reverse
+    @units = Unit.order(:created_at).reverse
+    
     @xlsUnits = Unit.all
     respond_to do |format|
       format.html
